@@ -7,7 +7,9 @@ private:
 	unsigned int count;
 
 public:
-	UnivariateSample(bool track_extrema, bool track_variance);
+	UnivariateSample();
+	void Update(double x);
+
 	unsigned int Count() const { return count; }
 };
 
