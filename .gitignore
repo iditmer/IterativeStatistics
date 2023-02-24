@@ -1,3 +1,7 @@
+VS Community
+.vs/*
+out/*
+
 # Prerequisites
 *.d
 
