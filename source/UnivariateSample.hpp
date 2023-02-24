@@ -5,11 +5,13 @@ class UnivariateSample
 {
 private:
 	unsigned int count;
+	double sum_x;
 
 public:
 	UnivariateSample();
 	void Update(double x);
 
+	double Mean() const;
 	unsigned int Count() const { return count; }
 };
 
