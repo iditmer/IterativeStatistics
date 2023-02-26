@@ -23,7 +23,7 @@ protected:
     };
 
     const double multiple_item_mean = -1690.2929919999997;
-    const double multiple_item_variance = 21579307.70638082;
+    const double multiple_item_variance = 22478445.52748002;
     
     void SetUp() override {
 
@@ -58,5 +58,5 @@ TEST_F(UnivariateSampleTest, Variance) {
     EXPECT_THROW(single_item.Variance(), std::logic_error);
     EXPECT_EQ(single_item_with_variance.Variance(), 0.0);
     EXPECT_THROW(multiple_items.Variance(), std::logic_error);
-    EXPECT_EQ(multiple_items_with_variance.Variance(), multiple_item_variance);
+    EXPECT_NEAR(multiple_items_with_variance.Variance(), multiple_item_variance, 1e-7);
 }
