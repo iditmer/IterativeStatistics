@@ -25,6 +25,7 @@ public:
 
 	double Mean() const;
 	double Variance() const;
+	double StandardDeviation() const;
 	unsigned int Count() const { return count; }
 };
 

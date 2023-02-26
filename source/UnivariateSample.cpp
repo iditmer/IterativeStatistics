@@ -38,3 +38,11 @@ double UnivariateSample::Variance() const
 	else if (count == 1) return 0.0;
 	else return (1.0 / (count - 1)) * (sum_x_squared - (1.0 / count) * sum_x * sum_x);
 }
+
+double UnivariateSample::StandardDeviation() const
+{
+	if (!track_var) throw std::logic_error("Variance not tracked for this sample.");
+	else if (count == 0) throw std::logic_error("Standard deviation cannot be computed from a collection of 0 elements.");
+	else if (count == 1) return 0.0;
+	else return sqrt(Variance());
+}
