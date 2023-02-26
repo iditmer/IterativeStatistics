@@ -24,7 +24,7 @@ protected:
 
     const double multiple_item_mean = -1690.2929919999997;
     const double multiple_item_variance = 22478445.52748002;
-    const double multiple_item_standard_deviation = 4645.35334569727;
+    const double multiple_item_standard_deviation = 4741.143904953742;
     
     void SetUp() override {
 
