@@ -32,6 +32,7 @@ protected:
     const double multiple_item_variance = 22478445.52748002;
     const double multiple_item_standard_deviation = 4741.143904953742;
     const double multiple_item_min = -7482.0950;
+    const double multiple_item_max = 7305.6153;
     
     void SetUp() override {
 
@@ -117,4 +118,18 @@ TEST_F(UnivariateSampleTest, Minimum) {
     EXPECT_THROW(multiple_items_with_variance.Min(), std::logic_error);
     EXPECT_EQ(multiple_items_with_extrema.Min(), multiple_item_min);
     EXPECT_EQ(multiple_items_with_both.Min(), multiple_item_min);
+}
+
+TEST_F(UnivariateSampleTest, Maximum) {
+    EXPECT_THROW(no_items.Max(), std::logic_error);
+
+    EXPECT_THROW(single_item.Max(), std::logic_error);
+    EXPECT_THROW(single_item_with_variance.Max(), std::logic_error);
+    EXPECT_EQ(single_item_with_extrema.Max(), single_item_value);
+    EXPECT_EQ(single_item_with_both.Max(), single_item_value);
+
+    EXPECT_THROW(multiple_items.Max(), std::logic_error);
+    EXPECT_THROW(multiple_items_with_variance.Max(), std::logic_error);
+    EXPECT_EQ(multiple_items_with_extrema.Max(), multiple_item_max);
+    EXPECT_EQ(multiple_items_with_both.Max(), multiple_item_max);
 }
