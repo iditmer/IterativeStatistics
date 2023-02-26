@@ -6,11 +6,17 @@ class UnivariateSampleTest : public ::testing::Test {
 
 protected:
 
-    UnivariateSample no_items{ true };
-    UnivariateSample single_item{ false };
-    UnivariateSample single_item_with_variance{ true };
-    UnivariateSample multiple_items{ false };
-    UnivariateSample multiple_items_with_variance{ true };
+    UnivariateSample no_items{ true, true };
+
+    UnivariateSample single_item{ false, false };
+    UnivariateSample single_item_with_variance{ true, false };
+    UnivariateSample single_item_with_extrema{ false, true };
+    UnivariateSample single_item_with_both{ true, true };
+    
+    UnivariateSample multiple_items{ false, false };
+    UnivariateSample multiple_items_with_variance{ true, false };
+    UnivariateSample multiple_items_with_extrema{ false, true };
+    UnivariateSample multiple_items_with_both{ true,true };
     
     const double single_item_value = 3.1415926535;
 
@@ -30,42 +36,70 @@ protected:
 
         single_item.Update(single_item_value);
         single_item_with_variance.Update(single_item_value);
+        single_item_with_extrema.Update(single_item_value);
+        single_item_with_both.Update(single_item_value);
 
         for (auto& x : multiple_item_values) {
             multiple_items.Update(x);
             multiple_items_with_variance.Update(x);
+            multiple_items_with_extrema.Update(x);
+            multiple_items_with_both.Update(x);
         }
     }
 };
 
-TEST_F(UnivariateSampleTest, Count) {
+TEST_F(UnivariateSampleTest, Count) {    
     EXPECT_EQ(no_items.Count(), 0);
+    
     EXPECT_EQ(single_item.Count(), 1);
     EXPECT_EQ(single_item_with_variance.Count(), 1);
+    EXPECT_EQ(single_item_with_extrema.Count(), 1);
+    EXPECT_EQ(single_item_with_both.Count(), 1);
+    
     EXPECT_EQ(multiple_items.Count(), multiple_item_values.size());
     EXPECT_EQ(multiple_items_with_variance.Count(), multiple_item_values.size());
+    EXPECT_EQ(multiple_items_with_extrema.Count(), multiple_item_values.size());
+    EXPECT_EQ(multiple_items_with_both.Count(), multiple_item_values.size());
 }
 
 TEST_F(UnivariateSampleTest, Mean) {
     EXPECT_THROW(no_items.Mean(), std::logic_error);
+
     EXPECT_EQ(single_item.Mean(), single_item_value);
     EXPECT_EQ(single_item_with_variance.Mean(), single_item_value);
+    EXPECT_EQ(single_item_with_extrema.Mean(), single_item_value);
+    EXPECT_EQ(single_item_with_both.Mean(), single_item_value);
+
     EXPECT_NEAR(multiple_items.Mean(), multiple_item_mean, 1e-12);
     EXPECT_NEAR(multiple_items_with_variance.Mean(), multiple_item_mean, 1e-12);
+    EXPECT_NEAR(multiple_items_with_extrema.Mean(), multiple_item_mean, 1e-12);
+    EXPECT_NEAR(multiple_items_with_both.Mean(), multiple_item_mean, 1e-12);
 }
 
 TEST_F(UnivariateSampleTest, Variance) {
     EXPECT_THROW(no_items.Variance(), std::logic_error);
+
     EXPECT_THROW(single_item.Variance(), std::logic_error);
     EXPECT_EQ(single_item_with_variance.Variance(), 0.0);
+    EXPECT_THROW(single_item_with_extrema.Variance(), std::logic_error);
+    EXPECT_EQ(single_item_with_both.Variance(), 0.0);
+
     EXPECT_THROW(multiple_items.Variance(), std::logic_error);
     EXPECT_NEAR(multiple_items_with_variance.Variance(), multiple_item_variance, 1e-7);
+    EXPECT_THROW(multiple_items_with_extrema.Variance(), std::logic_error);
+    EXPECT_NEAR(multiple_items_with_both.Variance(), multiple_item_variance, 1e-7);
 }
 
 TEST_F(UnivariateSampleTest, StandardDeviation) {
     EXPECT_THROW(no_items.StandardDeviation(), std::logic_error);
+
     EXPECT_THROW(single_item.StandardDeviation(), std::logic_error);
     EXPECT_EQ(single_item_with_variance.StandardDeviation(), 0.0);
+    EXPECT_THROW(single_item_with_extrema.StandardDeviation(), std::logic_error);
+    EXPECT_EQ(single_item_with_both.StandardDeviation(), 0.0);
+
     EXPECT_THROW(multiple_items.StandardDeviation(), std::logic_error);
     EXPECT_NEAR(multiple_items_with_variance.StandardDeviation(), multiple_item_standard_deviation, 1e-11);
+    EXPECT_THROW(multiple_items_with_extrema.StandardDeviation(), std::logic_error);
+    EXPECT_NEAR(multiple_items_with_both.StandardDeviation(), multiple_item_standard_deviation, 1e-12);
 }
