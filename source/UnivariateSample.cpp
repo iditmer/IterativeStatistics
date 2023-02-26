@@ -7,9 +7,23 @@ UnivariateSample::UnivariateSample(bool track_variance, bool track_extrema)
 	sum_x_squared = 0;
 	count = 0;
 	track_var = track_variance;
+	track_ext = track_extrema;
 
-	if (track_variance) update = [this](double x) { this->update_with_var(x); };
+	if (track_extrema) update = [this](double x) { this->initial_update(x); };
+	else if (track_variance) update = [this](double x) { this->update_with_var(x); };
 	else update = [this](double x) { this->update_base(x); };
+}
+
+void UnivariateSample::initial_update(double x)
+{
+	update_base(x);
+	min = x;
+
+	if (track_var) {
+		sum_x_squared += x * x;
+		update = [this](double x) { this->update_full(x); };
+	}
+	else update = [this](double x) { this->update_with_ext(x); };
 }
 
 void UnivariateSample::update_base(double x) 
@@ -20,9 +34,21 @@ void UnivariateSample::update_base(double x)
 
 void UnivariateSample::update_with_var(double x)
 {
-	sum_x += x;
+	update_base(x);
 	sum_x_squared += x * x;
-	count++;
+}
+
+void UnivariateSample::update_with_ext(double x)
+{
+	update_base(x);
+	min = (min < x) ? min : x;
+}
+
+void UnivariateSample::update_full(double x)
+{
+	update_base(x);
+	sum_x_squared += x * x;
+	min = (min < x) ? min : x;
 }
 
 double UnivariateSample::Mean() const
@@ -45,4 +71,11 @@ double UnivariateSample::StandardDeviation() const
 	else if (count == 0) throw std::logic_error("Standard deviation cannot be computed from a collection of 0 elements.");
 	else if (count == 1) return 0.0;
 	else return sqrt(Variance());
+}
+
+double UnivariateSample::Min() const
+{
+	if (!track_ext) throw std::logic_error("Cannot report minimum; extrema not tracked for this sample.");
+	else if (count == 0) throw std::logic_error("Minimum cannot be reported for a collection of 0 elements.");
+	else return min;
 }

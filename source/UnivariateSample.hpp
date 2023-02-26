@@ -12,17 +12,23 @@ private:
 	double sum_x;
 	double sum_x_squared;
 	bool track_var;
+	bool track_ext;
+	double min;
 
 	std::function<void(double)> update;
 
+	void initial_update(double x);
 	void update_base(double x);
 	void update_with_var(double x);
+	void update_with_ext(double x);
+	void update_full(double x);
 
 public:
 
 	UnivariateSample(bool track_variance, bool track_extrema);
 	void Update(double x){ update(x); }
 
+	double Min() const;
 	double Mean() const;
 	double Variance() const;
 	double StandardDeviation() const;
