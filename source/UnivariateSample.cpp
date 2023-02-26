@@ -18,6 +18,7 @@ void UnivariateSample::initial_update(double x)
 {
 	update_base(x);
 	min = x;
+	max = x;
 
 	if (track_var) {
 		sum_x_squared += x * x;
@@ -42,6 +43,7 @@ void UnivariateSample::update_with_ext(double x)
 {
 	update_base(x);
 	min = (min < x) ? min : x;
+	max = (max > x) ? max : x;
 }
 
 void UnivariateSample::update_full(double x)
@@ -49,6 +51,7 @@ void UnivariateSample::update_full(double x)
 	update_base(x);
 	sum_x_squared += x * x;
 	min = (min < x) ? min : x;
+	max = (max > x) ? max : x;
 }
 
 double UnivariateSample::Mean() const
@@ -78,4 +81,11 @@ double UnivariateSample::Min() const
 	if (!track_ext) throw std::logic_error("Cannot report minimum; extrema not tracked for this sample.");
 	else if (count == 0) throw std::logic_error("Minimum cannot be reported for a collection of 0 elements.");
 	else return min;
+}
+
+double UnivariateSample::Max() const
+{
+	if (!track_ext) throw std::logic_error("Cannot report maximum; extrema not tracked for this sample.");
+	else if (count == 0) throw std::logic_error("Maximum cannot be reported for a collection of 0 elements.");
+	else return max;
 }

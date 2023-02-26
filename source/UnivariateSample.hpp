@@ -10,10 +10,13 @@ private:
 
 	unsigned int count;
 	double sum_x;
-	double sum_x_squared;
+	
 	bool track_var;
+	double sum_x_squared;
+
 	bool track_ext;
 	double min;
+	double max;
 
 	std::function<void(double)> update;
 
@@ -29,6 +32,7 @@ public:
 	void Update(double x){ update(x); }
 
 	double Min() const;
+	double Max() const;
 	double Mean() const;
 	double Variance() const;
 	double StandardDeviation() const;
