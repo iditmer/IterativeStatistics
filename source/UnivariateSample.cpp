@@ -1,7 +1,7 @@
 
 #include "UnivariateSample.hpp"
 
-UnivariateSample::UnivariateSample(bool track_variance)
+UnivariateSample::UnivariateSample(bool track_variance, bool track_extrema)
 {
 	sum_x = 0;
 	sum_x_squared = 0;

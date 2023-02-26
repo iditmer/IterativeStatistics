@@ -20,7 +20,7 @@ private:
 
 public:
 
-	UnivariateSample(bool track_variance);
+	UnivariateSample(bool track_variance, bool track_extrema);
 	void Update(double x){ update(x); }
 
 	double Mean() const;
