@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories("source")
 file(GLOB SOURCE_FILES "source/*.cpp" "source/*.hpp")
-add_executable (unit-tests "tests/UnivariateSampleTests.cpp" ${SOURCE_FILES} ${TEST_FILES})
+file(GLOB TEST_FILES "tests/*.cpp")
+add_executable (unit-tests ${SOURCE_FILES} ${TEST_FILES})
 
 include(FetchContent)
 FetchContent_Declare(
