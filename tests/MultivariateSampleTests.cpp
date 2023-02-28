@@ -36,8 +36,11 @@ protected:
     };
 
     void SetUp() override {
-
-
+        single_item.Update(single_item_value);
+        
+        for (auto& row : multiple_item_values) {
+            multiple_items.Update(row);
+        }
     }
 };
 

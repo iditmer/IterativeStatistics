@@ -11,8 +11,8 @@ private:
 
 public:
 
-	MultivariateSample() {}
-
+	MultivariateSample() { count = 0; }
+	void Update(std::vector<double> vec) { count++; }
 	unsigned int Count() const { return count; }
 
 };
