@@ -8,7 +8,7 @@ class UnivariateSample
 {
 private:
 
-	unsigned int count;
+	unsigned long long count;
 	double sum_x;
 	
 	bool track_var;
@@ -36,7 +36,7 @@ public:
 	double Mean() const;
 	double Variance() const;
 	double StandardDeviation() const;
-	unsigned int Count() const { return count; }
+	unsigned long long Count() const { return count; }
 };
 
 #endif // ITERATIVESTATISTICS_UNIVARIATESAMPLE_H

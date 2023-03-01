@@ -7,13 +7,13 @@ class MultivariateSample
 {
 private:
 
-	unsigned int count;
+	unsigned long long count;
 
 public:
 
 	MultivariateSample() { count = 0; }
 	void Update(std::vector<double> vec) { count++; }
-	unsigned int Count() const { return count; }
+	unsigned long long Count() const { return count; }
 
 };
 
