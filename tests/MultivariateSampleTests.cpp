@@ -6,9 +6,9 @@ class MultivariateSampleTest : public ::testing::Test {
 
 protected:
 
-    MultivariateSample no_items{};
-    MultivariateSample single_item{};
-    MultivariateSample multiple_items{};
+    MultivariateSample no_items{ 2 };
+    MultivariateSample single_item{ 4 };
+    MultivariateSample multiple_items{ 7 };
 
     const std::vector<double> single_item_value = { 1.0, 1.4142135623730951, 1.7320508075688772, 2.0 };
     const std::vector<std::vector<double>> multiple_item_values = {
@@ -48,4 +48,10 @@ TEST_F(MultivariateSampleTest, Count) {
     EXPECT_EQ(no_items.Count(), 0);
     EXPECT_EQ(single_item.Count(), 1);
     EXPECT_EQ(multiple_items.Count(), multiple_item_values.size());
+}
+
+TEST_F(MultivariateSampleTest, Dimensionality) {
+    ASSERT_EQ(no_items.Dimensionality(), 2);
+    ASSERT_EQ(single_item.Dimensionality(), 4);
+    ASSERT_EQ(multiple_items.Dimensionality(), 7);
 }
