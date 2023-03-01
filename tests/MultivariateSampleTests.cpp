@@ -45,9 +45,9 @@ protected:
 };
 
 TEST_F(MultivariateSampleTest, Count) {
-    EXPECT_EQ(no_items.Count(), 0);
-    EXPECT_EQ(single_item.Count(), 1);
-    EXPECT_EQ(multiple_items.Count(), multiple_item_values.size());
+    ASSERT_EQ(no_items.Count(), 0);
+    ASSERT_EQ(single_item.Count(), 1);
+    ASSERT_EQ(multiple_items.Count(), multiple_item_values.size());
 }
 
 TEST_F(MultivariateSampleTest, Dimensionality) {

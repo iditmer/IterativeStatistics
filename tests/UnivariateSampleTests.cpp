@@ -51,85 +51,85 @@ protected:
 };
 
 TEST_F(UnivariateSampleTest, Count) {    
-    EXPECT_EQ(no_items.Count(), 0);
+    ASSERT_EQ(no_items.Count(), 0);
     
-    EXPECT_EQ(single_item.Count(), 1);
-    EXPECT_EQ(single_item_with_variance.Count(), 1);
-    EXPECT_EQ(single_item_with_extrema.Count(), 1);
-    EXPECT_EQ(single_item_with_both.Count(), 1);
+    ASSERT_EQ(single_item.Count(), 1);
+    ASSERT_EQ(single_item_with_variance.Count(), 1);
+    ASSERT_EQ(single_item_with_extrema.Count(), 1);
+    ASSERT_EQ(single_item_with_both.Count(), 1);
     
-    EXPECT_EQ(multiple_items.Count(), multiple_item_values.size());
-    EXPECT_EQ(multiple_items_with_variance.Count(), multiple_item_values.size());
-    EXPECT_EQ(multiple_items_with_extrema.Count(), multiple_item_values.size());
-    EXPECT_EQ(multiple_items_with_both.Count(), multiple_item_values.size());
+    ASSERT_EQ(multiple_items.Count(), multiple_item_values.size());
+    ASSERT_EQ(multiple_items_with_variance.Count(), multiple_item_values.size());
+    ASSERT_EQ(multiple_items_with_extrema.Count(), multiple_item_values.size());
+    ASSERT_EQ(multiple_items_with_both.Count(), multiple_item_values.size());
 }
 
 TEST_F(UnivariateSampleTest, Mean) {
-    EXPECT_THROW(no_items.Mean(), std::logic_error);
+    ASSERT_THROW(no_items.Mean(), std::logic_error);
 
-    EXPECT_EQ(single_item.Mean(), single_item_value);
-    EXPECT_EQ(single_item_with_variance.Mean(), single_item_value);
-    EXPECT_EQ(single_item_with_extrema.Mean(), single_item_value);
-    EXPECT_EQ(single_item_with_both.Mean(), single_item_value);
+    ASSERT_EQ(single_item.Mean(), single_item_value);
+    ASSERT_EQ(single_item_with_variance.Mean(), single_item_value);
+    ASSERT_EQ(single_item_with_extrema.Mean(), single_item_value);
+    ASSERT_EQ(single_item_with_both.Mean(), single_item_value);
 
-    EXPECT_NEAR(multiple_items.Mean(), multiple_item_mean, 1e-12);
-    EXPECT_NEAR(multiple_items_with_variance.Mean(), multiple_item_mean, 1e-12);
-    EXPECT_NEAR(multiple_items_with_extrema.Mean(), multiple_item_mean, 1e-12);
-    EXPECT_NEAR(multiple_items_with_both.Mean(), multiple_item_mean, 1e-12);
+    ASSERT_NEAR(multiple_items.Mean(), multiple_item_mean, 1e-12);
+    ASSERT_NEAR(multiple_items_with_variance.Mean(), multiple_item_mean, 1e-12);
+    ASSERT_NEAR(multiple_items_with_extrema.Mean(), multiple_item_mean, 1e-12);
+    ASSERT_NEAR(multiple_items_with_both.Mean(), multiple_item_mean, 1e-12);
 }
 
 TEST_F(UnivariateSampleTest, Variance) {
-    EXPECT_THROW(no_items.Variance(), std::logic_error);
+    ASSERT_THROW(no_items.Variance(), std::logic_error);
 
-    EXPECT_THROW(single_item.Variance(), std::logic_error);
-    EXPECT_EQ(single_item_with_variance.Variance(), 0.0);
-    EXPECT_THROW(single_item_with_extrema.Variance(), std::logic_error);
-    EXPECT_EQ(single_item_with_both.Variance(), 0.0);
+    ASSERT_THROW(single_item.Variance(), std::logic_error);
+    ASSERT_EQ(single_item_with_variance.Variance(), 0.0);
+    ASSERT_THROW(single_item_with_extrema.Variance(), std::logic_error);
+    ASSERT_EQ(single_item_with_both.Variance(), 0.0);
 
-    EXPECT_THROW(multiple_items.Variance(), std::logic_error);
-    EXPECT_NEAR(multiple_items_with_variance.Variance(), multiple_item_variance, 1e-7);
-    EXPECT_THROW(multiple_items_with_extrema.Variance(), std::logic_error);
-    EXPECT_NEAR(multiple_items_with_both.Variance(), multiple_item_variance, 1e-7);
+    ASSERT_THROW(multiple_items.Variance(), std::logic_error);
+    ASSERT_NEAR(multiple_items_with_variance.Variance(), multiple_item_variance, 1e-7);
+    ASSERT_THROW(multiple_items_with_extrema.Variance(), std::logic_error);
+    ASSERT_NEAR(multiple_items_with_both.Variance(), multiple_item_variance, 1e-7);
 }
 
 TEST_F(UnivariateSampleTest, StandardDeviation) {
-    EXPECT_THROW(no_items.StandardDeviation(), std::logic_error);
+    ASSERT_THROW(no_items.StandardDeviation(), std::logic_error);
 
-    EXPECT_THROW(single_item.StandardDeviation(), std::logic_error);
-    EXPECT_EQ(single_item_with_variance.StandardDeviation(), 0.0);
-    EXPECT_THROW(single_item_with_extrema.StandardDeviation(), std::logic_error);
-    EXPECT_EQ(single_item_with_both.StandardDeviation(), 0.0);
+    ASSERT_THROW(single_item.StandardDeviation(), std::logic_error);
+    ASSERT_EQ(single_item_with_variance.StandardDeviation(), 0.0);
+    ASSERT_THROW(single_item_with_extrema.StandardDeviation(), std::logic_error);
+    ASSERT_EQ(single_item_with_both.StandardDeviation(), 0.0);
 
-    EXPECT_THROW(multiple_items.StandardDeviation(), std::logic_error);
-    EXPECT_NEAR(multiple_items_with_variance.StandardDeviation(), multiple_item_standard_deviation, 1e-11);
-    EXPECT_THROW(multiple_items_with_extrema.StandardDeviation(), std::logic_error);
-    EXPECT_NEAR(multiple_items_with_both.StandardDeviation(), multiple_item_standard_deviation, 1e-12);
+    ASSERT_THROW(multiple_items.StandardDeviation(), std::logic_error);
+    ASSERT_NEAR(multiple_items_with_variance.StandardDeviation(), multiple_item_standard_deviation, 1e-11);
+    ASSERT_THROW(multiple_items_with_extrema.StandardDeviation(), std::logic_error);
+    ASSERT_NEAR(multiple_items_with_both.StandardDeviation(), multiple_item_standard_deviation, 1e-12);
 }
 
 TEST_F(UnivariateSampleTest, Minimum) {
-    EXPECT_THROW(no_items.Min(), std::logic_error);
+    ASSERT_THROW(no_items.Min(), std::logic_error);
 
-    EXPECT_THROW(single_item.Min(), std::logic_error);
-    EXPECT_THROW(single_item_with_variance.Min(), std::logic_error);
-    EXPECT_EQ(single_item_with_extrema.Min(), single_item_value);
-    EXPECT_EQ(single_item_with_both.Min(), single_item_value);
+    ASSERT_THROW(single_item.Min(), std::logic_error);
+    ASSERT_THROW(single_item_with_variance.Min(), std::logic_error);
+    ASSERT_EQ(single_item_with_extrema.Min(), single_item_value);
+    ASSERT_EQ(single_item_with_both.Min(), single_item_value);
 
-    EXPECT_THROW(multiple_items.Min(), std::logic_error);
-    EXPECT_THROW(multiple_items_with_variance.Min(), std::logic_error);
-    EXPECT_EQ(multiple_items_with_extrema.Min(), multiple_item_min);
-    EXPECT_EQ(multiple_items_with_both.Min(), multiple_item_min);
+    ASSERT_THROW(multiple_items.Min(), std::logic_error);
+    ASSERT_THROW(multiple_items_with_variance.Min(), std::logic_error);
+    ASSERT_EQ(multiple_items_with_extrema.Min(), multiple_item_min);
+    ASSERT_EQ(multiple_items_with_both.Min(), multiple_item_min);
 }
 
 TEST_F(UnivariateSampleTest, Maximum) {
-    EXPECT_THROW(no_items.Max(), std::logic_error);
+    ASSERT_THROW(no_items.Max(), std::logic_error);
 
-    EXPECT_THROW(single_item.Max(), std::logic_error);
-    EXPECT_THROW(single_item_with_variance.Max(), std::logic_error);
-    EXPECT_EQ(single_item_with_extrema.Max(), single_item_value);
-    EXPECT_EQ(single_item_with_both.Max(), single_item_value);
+    ASSERT_THROW(single_item.Max(), std::logic_error);
+    ASSERT_THROW(single_item_with_variance.Max(), std::logic_error);
+    ASSERT_EQ(single_item_with_extrema.Max(), single_item_value);
+    ASSERT_EQ(single_item_with_both.Max(), single_item_value);
 
-    EXPECT_THROW(multiple_items.Max(), std::logic_error);
-    EXPECT_THROW(multiple_items_with_variance.Max(), std::logic_error);
-    EXPECT_EQ(multiple_items_with_extrema.Max(), multiple_item_max);
-    EXPECT_EQ(multiple_items_with_both.Max(), multiple_item_max);
+    ASSERT_THROW(multiple_items.Max(), std::logic_error);
+    ASSERT_THROW(multiple_items_with_variance.Max(), std::logic_error);
+    ASSERT_EQ(multiple_items_with_extrema.Max(), multiple_item_max);
+    ASSERT_EQ(multiple_items_with_both.Max(), multiple_item_max);
 }
