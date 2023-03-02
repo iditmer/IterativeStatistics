@@ -1,6 +1,10 @@
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include "MultivariateSample.hpp"
+
+using ::testing::Pointwise;
+using ::testing::DoubleNear;
 
 class MultivariateSampleTest : public ::testing::Test {
 
@@ -35,6 +39,9 @@ protected:
         std::vector<double>{ 24712.86217, 7640.57784, 27630.69790, 16408.42324, 12613.15297, 2587.72593, 16380.48641 }
     };
 
+    std::vector<double> multiple_item_mean = { 9438.51078142857 , 14320.605574285713, 11453.612821904762,
+        11146.591090476193, 10502.44388238095 ,  9036.425858571427, 11510.63326809524 };
+
     void SetUp() override {
         single_item.Update(single_item_value);
         
@@ -54,4 +61,10 @@ TEST_F(MultivariateSampleTest, Dimensionality) {
     ASSERT_EQ(no_items.Dimensionality(), 2);
     ASSERT_EQ(single_item.Dimensionality(), 4);
     ASSERT_EQ(multiple_items.Dimensionality(), 7);
+}
+
+TEST_F(MultivariateSampleTest, Mean) {
+    ASSERT_THROW(no_items.Mean(), std::logic_error);
+    ASSERT_EQ(single_item.Mean(), single_item_value);
+    ASSERT_THAT(multiple_items.Mean(), Pointwise(DoubleNear(1e-11), multiple_item_mean));
 }
