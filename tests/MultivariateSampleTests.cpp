@@ -64,7 +64,7 @@ TEST_F(MultivariateSampleTest, Covariance) {
     }
 
     for (int i = 0; i < multivariate_single_item_dim; i++) {
-        for (int j = 0; j < multivariate_single_item_dim; i++) {
+        for (int j = 0; j < multivariate_single_item_dim; j++) {
             ASSERT_THROW(single_item.Covariance(i, j), std::logic_error);
         }
     }
