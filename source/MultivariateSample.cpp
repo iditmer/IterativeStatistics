@@ -1,7 +1,9 @@
 #include "MultivariateSample.hpp"
 
-MultivariateSample::MultivariateSample(int num_dimensions)
+MultivariateSample::MultivariateSample(int num_dimensions, bool track_variance)
 {
+	track_var = track_variance;
+
 	dimensionality = num_dimensions;
 	count = 0;
 	sum_x = std::vector<double>(dimensionality);
@@ -24,4 +26,10 @@ std::vector<double> MultivariateSample::Mean() const
 		mean[i] += sum_x[i] / count;
 	}
 	return mean;
+}
+
+double MultivariateSample::Covariance(int row, int column) const
+{
+	if (!track_var) throw std::logic_error("Covariance not tracked for this sample.");
+	else if (count == 0) throw std::logic_error("Covariance cannot be computed for collection of 0 elements.");
 }
