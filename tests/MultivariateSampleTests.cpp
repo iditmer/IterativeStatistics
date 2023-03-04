@@ -55,7 +55,7 @@ TEST_F(MultivariateSampleTest, Mean) {
     ASSERT_THAT(multiple_items_with_variance.Mean(), Pointwise(DoubleNear(1e-11), multivariate_multiple_item_mean));
 }
 
-TEST_F(MultivariateSampleTest, Covariance) {
+TEST_F(MultivariateSampleTest, CovarianceExceptions) {
     
     for (int i = 0; i < multivariate_no_item_dim; i++) {
         for (int j = 0; j < multivariate_no_item_dim; j++) {
@@ -74,4 +74,14 @@ TEST_F(MultivariateSampleTest, Covariance) {
             ASSERT_THROW(multiple_items.Covariance(i, j), std::logic_error);
         }
     }
+
+    ASSERT_THROW(single_item_with_variance.Covariance(0, -1), std::out_of_range);
+    ASSERT_THROW(single_item_with_variance.Covariance(-1, 0), std::out_of_range);
+    ASSERT_THROW(single_item_with_variance.Covariance(0, multivariate_single_item_dim), std::out_of_range);
+    ASSERT_THROW(single_item_with_variance.Covariance(multivariate_single_item_dim, 0), std::out_of_range);
+
+    ASSERT_THROW(multiple_items_with_variance.Covariance(0, -1), std::out_of_range);
+    ASSERT_THROW(multiple_items_with_variance.Covariance(-1, 0), std::out_of_range);
+    ASSERT_THROW(multiple_items_with_variance.Covariance(0, multivariate_single_item_dim), std::out_of_range);
+    ASSERT_THROW(multiple_items_with_variance.Covariance(multivariate_single_item_dim, 0), std::out_of_range);
 }
