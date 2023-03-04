@@ -1,4 +1,5 @@
 #include "MultivariateSample.hpp"
+#include <string>
 
 MultivariateSample::MultivariateSample(int num_dimensions, bool track_variance)
 {
@@ -31,5 +32,7 @@ std::vector<double> MultivariateSample::Mean() const
 double MultivariateSample::Covariance(int row, int column) const
 {
 	if (!track_var) throw std::logic_error("Covariance not tracked for this sample.");
+	else if (row < 0 || row >= dimensionality) throw std::out_of_range("Invalid covariance row index: " + std::to_string(row));
+	else if (column < 0 || column >= dimensionality) throw std::out_of_range("Invalid covariance column index: " + std::to_string(column));
 	else if (count == 0) throw std::logic_error("Covariance cannot be computed for collection of 0 elements.");
 }
