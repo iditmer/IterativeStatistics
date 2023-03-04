@@ -11,13 +11,13 @@ class MultivariateSampleTest : public ::testing::Test {
 
 protected:
 
-    MultivariateSample no_items{ 2, true };
+    MultivariateSample no_items{ multivariate_no_item_dim, true };
     
-    MultivariateSample single_item{ 4, false };
-    MultivariateSample single_item_with_variance{ 4, true };
+    MultivariateSample single_item{ multivariate_single_item_dim, false };
+    MultivariateSample single_item_with_variance{ multivariate_single_item_dim, true };
     
-    MultivariateSample multiple_items{ 7, false };
-    MultivariateSample multiple_items_with_variance{ 7, true };
+    MultivariateSample multiple_items{ multivariate_multiple_item_dim, false };
+    MultivariateSample multiple_items_with_variance{ multivariate_multiple_item_dim, true };
 
     void SetUp() override {
 
@@ -40,11 +40,11 @@ TEST_F(MultivariateSampleTest, Count) {
 }
 
 TEST_F(MultivariateSampleTest, Dimensionality) {
-    ASSERT_EQ(no_items.Dimensionality(), 2);
-    ASSERT_EQ(single_item.Dimensionality(), 4);
-    ASSERT_EQ(single_item_with_variance.Dimensionality(), 4);
-    ASSERT_EQ(multiple_items.Dimensionality(), 7);
-    ASSERT_EQ(multiple_items_with_variance.Dimensionality(), 7);
+    ASSERT_EQ(no_items.Dimensionality(), multivariate_no_item_dim);
+    ASSERT_EQ(single_item.Dimensionality(), multivariate_single_item_dim);
+    ASSERT_EQ(single_item_with_variance.Dimensionality(), multivariate_single_item_dim);
+    ASSERT_EQ(multiple_items.Dimensionality(), multivariate_multiple_item_dim);
+    ASSERT_EQ(multiple_items_with_variance.Dimensionality(), multivariate_multiple_item_dim);
 }
 
 TEST_F(MultivariateSampleTest, Mean) {
@@ -56,5 +56,5 @@ TEST_F(MultivariateSampleTest, Mean) {
 }
 
 TEST_F(MultivariateSampleTest, Covariance) {
-
+    
 }

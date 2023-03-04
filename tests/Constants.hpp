@@ -17,6 +17,9 @@ const double univariate_multiple_item_standard_deviation = 4741.143904953742;
 const double univariate_multiple_item_min = -7482.0950;
 const double univariate_multiple_item_max = 7305.6153;
 
+const int multivariate_no_item_dim = 2;
+const int multivariate_single_item_dim = 4;
+const int multivariate_multiple_item_dim = 7;
 
 const std::vector<double> multivariate_single_item_value = { 1.0, 1.4142135623730951, 1.7320508075688772, 2.0 };
 const std::vector<std::vector<double>> multivariate_multiple_item_values = {
