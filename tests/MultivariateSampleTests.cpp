@@ -82,6 +82,6 @@ TEST_F(MultivariateSampleTest, CovarianceExceptions) {
 
     ASSERT_THROW(multiple_items_with_variance.Covariance(0, -1), std::out_of_range);
     ASSERT_THROW(multiple_items_with_variance.Covariance(-1, 0), std::out_of_range);
-    ASSERT_THROW(multiple_items_with_variance.Covariance(0, multivariate_single_item_dim), std::out_of_range);
-    ASSERT_THROW(multiple_items_with_variance.Covariance(multivariate_single_item_dim, 0), std::out_of_range);
+    ASSERT_THROW(multiple_items_with_variance.Covariance(0, multivariate_multiple_item_dim), std::out_of_range);
+    ASSERT_THROW(multiple_items_with_variance.Covariance(multivariate_multiple_item_dim, 0), std::out_of_range);
 }
