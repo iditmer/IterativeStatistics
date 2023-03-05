@@ -14,6 +14,7 @@ private:
 	bool track_var;
 
 	std::vector<double> sum_x;
+	std::vector<double> cross_products;
 
 public:
 
