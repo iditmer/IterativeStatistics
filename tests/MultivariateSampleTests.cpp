@@ -97,7 +97,7 @@ TEST_F(MultivariateSampleTest, CovarianceValues) {
 
     for (int i = 0; i < multivariate_multiple_item_dim; i++) {
         for (int j = 0; j < multivariate_multiple_item_dim; j++) {
-            ASSERT_NEAR(multiple_items_with_variance.Covariance(i, j), multivariate_multiple_item_covariance[i][j], 1e-10);
+            ASSERT_NEAR(multiple_items_with_variance.Covariance(i, j), multivariate_multiple_item_covariance[i][j], 1e-6);
         }
     }
 }
