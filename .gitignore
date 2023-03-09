@@ -1,6 +1,6 @@
 VS Community
 .vs/*
-test/out/*
+tests/out/*
 demo/out/*
 
 # LaTeX

@@ -4,9 +4,9 @@ cmake_minimum_required(VERSION 3.14)
 project ("IterativeStatistics")
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories("source")
-file(GLOB SOURCE_FILES "source/*.cpp" "source/*.hpp")
-file(GLOB TEST_FILES "tests/*.cpp")
+include_directories("../source")
+file(GLOB SOURCE_FILES "../source/*.cpp" "../source/*.hpp")
+file(GLOB TEST_FILES "*.cpp")
 add_executable (unit-tests ${SOURCE_FILES} ${TEST_FILES})
 
 include(FetchContent)
