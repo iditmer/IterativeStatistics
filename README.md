@@ -1,4 +1,16 @@
 # Iterative Statistics
-Classes used for computing sample statistics without requiring all observations to be accessible or in memory at once. Key variables are tracked and updated as new observations are seen, allowing statistics to be computed and used at any point after data has been read or accessed. 
+Classes used for computing sample statistics from observations without requiring all data to be loaded into memory concurrently. The most common use case is reporting statistics from very large data sets, possibly stored in multiple files or locations. 
 
-This repository is an active work in progress --
+```cpp
+
+    UnivariateSample stats{};
+    
+    for (auto observation : collection){
+      // evaluate conditions, perform other processing, etc.
+      stats.update(observation);
+    }
+    
+    std::cout << "Average Observation: " << stats.Mean() << "\n";
+    std::cout << "Variance in Observations: " << stats.Variance() << "\n";
+  
+```
