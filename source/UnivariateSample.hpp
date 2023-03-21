@@ -28,7 +28,7 @@ private:
 
 public:
 
-	UnivariateSample(bool track_variance, bool track_extrema);
+	UnivariateSample(bool track_variance = true, bool track_extrema = false);
 	void Update(double x){ update(x); }
 
 	double Min() const;
