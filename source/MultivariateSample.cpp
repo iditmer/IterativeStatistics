@@ -11,21 +11,25 @@ MultivariateSample::MultivariateSample(int num_dimensions, bool track_variance)
 	if (track_variance) {
 		cross_products = std::vector<double>(dimensionality * (dimensionality + 1) / 2);
 	}
+
+	if (track_variance) update = [this](std::vector<double> v) { this->update_with_cov(v); };
+	else update = [this](std::vector<double> v) { this->update_base(v); };
 }
 
-void MultivariateSample::Update(std::vector<double> vec)
+void MultivariateSample::update_base(std::vector<double> v)
 {
 	count++;
 	for (int i = 0; i < dimensionality; i++) {
-		sum_x[i] += vec[i];
+		sum_x[i] += v[i];
 	}
+}
 
-	if (track_var) {
-
-		for (int i = 0; i < dimensionality; i++) {
-			for (int j = i; j < dimensionality; j++) {
-				cross_products[j + i * dimensionality - i * (i + 1) / 2] += vec[i] * vec[j];
-			}
+void MultivariateSample::update_with_cov(std::vector<double> v)
+{
+	update_base(v);
+	for (int i = 0; i < dimensionality; i++) {
+		for (int j = i; j < dimensionality; j++) {
+			cross_products[j + i * dimensionality - i * (i + 1) / 2] += v[i] * v[j];
 		}
 	}
 }
