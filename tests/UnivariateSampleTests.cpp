@@ -26,7 +26,7 @@ protected:
         single_item_with_extrema.Update(univariate_single_item_value);
         single_item_with_both.Update(univariate_single_item_value);
 
-        for (auto& x : univariate_multiple_item_values) {
+        for (const auto& x : univariate_multiple_item_values) {
             multiple_items.Update(x);
             multiple_items_with_variance.Update(x);
             multiple_items_with_extrema.Update(x);
