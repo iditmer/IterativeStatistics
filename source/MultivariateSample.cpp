@@ -8,7 +8,9 @@ MultivariateSample::MultivariateSample(int num_dimensions, bool track_variance)
 	dimensionality = num_dimensions;
 	count = 0;
 	sum_x = std::vector<double>(dimensionality);
-	cross_products = std::vector<double>(dimensionality * dimensionality);
+	if (track_variance) {
+		cross_products = std::vector<double>(dimensionality * (dimensionality + 1) / 2);
+	}
 }
 
 void MultivariateSample::Update(std::vector<double> vec)
@@ -18,9 +20,12 @@ void MultivariateSample::Update(std::vector<double> vec)
 		sum_x[i] += vec[i];
 	}
 
-	for (int i = 0; i < dimensionality; i++) {
-		for (int j = 0; j < dimensionality; j++) {
-			cross_products[i * dimensionality + j] += vec[i] * vec[j];
+	if (track_var) {
+
+		for (int i = 0; i < dimensionality; i++) {
+			for (int j = i; j < dimensionality; j++) {
+				cross_products[j + i * dimensionality - i * (i + 1) / 2] += vec[i] * vec[j];
+			}
 		}
 	}
 }
@@ -44,7 +49,9 @@ double MultivariateSample::Covariance(int row, int column) const
 	else if (count == 0) throw std::logic_error("Covariance cannot be computed for collection of 0 elements.");
 	else if (count == 1) return 0.0;
 	else {
-		return (1.0 / (count - 1)) * (cross_products[row * dimensionality + column] -
+		int max = (row > column) ? row : column;
+		int min = (row < column) ? row : column;
+		return (1.0 / (count - 1)) * (cross_products[max + min * dimensionality - min * (min + 1) / 2] -
 			(1.0 / count) * sum_x[row] * sum_x[column]);
 	}
 }
