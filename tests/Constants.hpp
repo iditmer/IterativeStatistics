@@ -22,6 +22,7 @@ const int multivariate_single_item_dim = 4;
 const int multivariate_multiple_item_dim = 7;
 
 const std::vector<double> multivariate_single_item_value = { 1.0, 1.4142135623730951, 1.7320508075688772, 2.0 };
+
 const std::vector<std::vector<double>> multivariate_multiple_item_values = {
     std::vector<double>{ 20027.01592, -2945.66691, 13911.23004, 6468.60638, 19643.12585, 38995.19046, 22905.31406 },
     std::vector<double>{ 12858.62301, 35736.50499, 16874.51207, 3143.99859, 7371.40132, 599.55912, 503.76013 },
@@ -65,5 +66,11 @@ const std::vector<std::vector<double>> multivariate_multiple_item_covariance = {
     std::vector<double>{ -4112604.5937113054, -78458587.9166529626, -4883178.8748960737, -5596914.1947885668,
     35176210.8983034864, 59706459.7757096663, 149424946.2378006279 }
 };
+
+const std::vector<double> multivaria_multiple_item_min = {-7597.8374 , -2945.66691, -6734.11654, -4319.32276, -1530.44338,
+       -5662.93012, -2547.44564};
+
+const std::vector<double> multivariate_multiple_item_max = { 37143.69222, 46371.60782, 31148.775  , 35117.32694, 32047.95082,
+       38995.19046, 43881.69213 };
 
 #endif
