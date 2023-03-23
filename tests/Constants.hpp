@@ -67,7 +67,7 @@ const std::vector<std::vector<double>> multivariate_multiple_item_covariance = {
     35176210.8983034864, 59706459.7757096663, 149424946.2378006279 }
 };
 
-const std::vector<double> multivaria_multiple_item_min = {-7597.8374 , -2945.66691, -6734.11654, -4319.32276, -1530.44338,
+const std::vector<double> multivariate_multiple_item_min = {-7597.8374 , -2945.66691, -6734.11654, -4319.32276, -1530.44338,
        -5662.93012, -2547.44564};
 
 const std::vector<double> multivariate_multiple_item_max = { 37143.69222, 46371.60782, 31148.775  , 35117.32694, 32047.95082,

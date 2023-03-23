@@ -151,6 +151,20 @@ TEST_F(MultivariateSampleTest, Minimum) {
 
     ASSERT_THROW(multiple_items.Min(), std::logic_error);
     ASSERT_THROW(multiple_items_with_variance.Min(), std::logic_error);
-    ASSERT_EQ(multiple_items_with_extrema.Min(), multivaria_multiple_item_min);
-    ASSERT_EQ(multiple_items_with_both.Min(), multivaria_multiple_item_min);
+    ASSERT_EQ(multiple_items_with_extrema.Min(), multivariate_multiple_item_min);
+    ASSERT_EQ(multiple_items_with_both.Min(), multivariate_multiple_item_min);
+}
+
+TEST_F(MultivariateSampleTest, Maximum) {
+    ASSERT_THROW(no_items.Max(), std::logic_error);
+
+    ASSERT_THROW(single_item.Max(), std::logic_error);
+    ASSERT_THROW(single_item_with_variance.Max(), std::logic_error);
+    ASSERT_EQ(single_item_with_extrema.Max(), multivariate_single_item_value);
+    ASSERT_EQ(single_item_with_both.Max(), multivariate_single_item_value);
+
+    ASSERT_THROW(multiple_items.Max(), std::logic_error);
+    ASSERT_THROW(multiple_items_with_variance.Max(), std::logic_error);
+    ASSERT_EQ(multiple_items_with_extrema.Max(), multivariate_multiple_item_max);
+    ASSERT_EQ(multiple_items_with_both.Max(), multivariate_multiple_item_max);
 }
