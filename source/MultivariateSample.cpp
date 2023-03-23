@@ -16,6 +16,7 @@ MultivariateSample::MultivariateSample(int num_dimensions, bool track_variance, 
 
 	if (track_extrema) {
 		min = std::vector<double>(dimensionality);
+		max = std::vector<double>(dimensionality);
 	}
 
 	if (track_extrema)  update = [this](std::vector<double> v) { this->initial_update(v); };
@@ -27,6 +28,7 @@ void MultivariateSample::initial_update(std::vector<double> v)
 {
 	for (int i = 0; i < dimensionality; i++) {
 		min[i] = v[i];
+		max[i] = v[i];
 	}
 
 	if (track_var) {
@@ -63,6 +65,7 @@ void MultivariateSample::update_with_ext(std::vector<double> v)
 
 	for (int i = 0; i < dimensionality; i++) {
 		min[i] = (min[i] < v[i]) ? min[i] : v[i];
+		max[i] = (max[i] > v[i]) ? max[i] : v[i];
 	}
 }
 
@@ -72,6 +75,7 @@ void MultivariateSample::update_full(std::vector<double> v)
 
 	for (int i = 0; i < dimensionality; i++) {
 		min[i] = (min[i] < v[i]) ? min[i] : v[i];
+		max[i] = (max[i] > v[i]) ? max[i] : v[i];
 	}
 }
 
@@ -106,4 +110,11 @@ std::vector<double> MultivariateSample::Min() const
 	if (!track_ext) throw std::logic_error("Cannot report minimum; extrema not tracked for this sample.");
 	else if (count == 0) throw std::logic_error("Cannot report minimum out of 0 observations.");
 	else return min;
+}
+
+std::vector<double> MultivariateSample::Max() const
+{
+	if (!track_ext) throw std::logic_error("Cannot report maximum; extrema not tracked for this sample.");
+	else if (count == 0) throw std::logic_error("Cannot report maximum out of 0 observations.");
+	else return max;
 }

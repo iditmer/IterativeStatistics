@@ -18,6 +18,7 @@ private:
 
 	bool track_ext;
 	std::vector<double> min;
+	std::vector<double> max;
 
 	std::function<void(std::vector<double>)> update;
 	void initial_update(std::vector<double> v);
@@ -38,6 +39,7 @@ public:
 	double Covariance(int row, int column) const;
 
 	std::vector<double> Min() const;
+	std::vector<double> Max() const;
 };
 
 #endif
