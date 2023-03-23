@@ -140,3 +140,17 @@ TEST_F(MultivariateSampleTest, CovarianceValues) {
         }
     }
 }
+
+TEST_F(MultivariateSampleTest, Minimum) {
+    ASSERT_THROW(no_items.Min(), std::logic_error);
+
+    ASSERT_THROW(single_item.Min(), std::logic_error);
+    ASSERT_THROW(single_item_with_variance.Min(), std::logic_error);
+    ASSERT_EQ(single_item_with_extrema.Min(), multivariate_single_item_value);
+    ASSERT_EQ(single_item_with_both.Min(), multivariate_single_item_value);
+
+    ASSERT_THROW(multiple_items.Min(), std::logic_error);
+    ASSERT_THROW(multiple_items_with_variance.Min(), std::logic_error);
+    ASSERT_EQ(multiple_items_with_extrema.Min(), multivaria_multiple_item_min);
+    ASSERT_EQ(multiple_items_with_both.Min(), multivaria_multiple_item_min);
+}
