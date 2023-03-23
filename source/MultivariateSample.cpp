@@ -1,19 +1,42 @@
 #include "MultivariateSample.hpp"
 #include <string>
 
-MultivariateSample::MultivariateSample(int num_dimensions, bool track_variance)
+MultivariateSample::MultivariateSample(int num_dimensions, bool track_variance, bool track_extrema)
 {
 	track_var = track_variance;
+	track_ext = track_extrema;
 
 	dimensionality = num_dimensions;
 	count = 0;
 	sum_x = std::vector<double>(dimensionality);
+
 	if (track_variance) {
 		cross_products = std::vector<double>(dimensionality * (dimensionality + 1) / 2);
 	}
 
-	if (track_variance) update = [this](std::vector<double> v) { this->update_with_cov(v); };
+	if (track_extrema) {
+		min = std::vector<double>(dimensionality);
+	}
+
+	if (track_extrema)  update = [this](std::vector<double> v) { this->initial_update(v); };
+	else if (track_variance) update = [this](std::vector<double> v) { this->update_with_cov(v); };
 	else update = [this](std::vector<double> v) { this->update_base(v); };
+}
+
+void MultivariateSample::initial_update(std::vector<double> v) 
+{
+	for (int i = 0; i < dimensionality; i++) {
+		min[i] = v[i];
+	}
+
+	if (track_var) {
+		update_with_cov(v);
+		update = [this](std::vector<double> v) { this->update_full(v); };
+	}
+	else {
+		update_base(v);
+		update = [this](std::vector<double> v) { this->update_with_ext(v); };
+	}
 }
 
 void MultivariateSample::update_base(std::vector<double> v)
@@ -31,6 +54,24 @@ void MultivariateSample::update_with_cov(std::vector<double> v)
 		for (int j = i; j < dimensionality; j++) {
 			cross_products[j + i * dimensionality - i * (i + 1) / 2] += v[i] * v[j];
 		}
+	}
+}
+
+void MultivariateSample::update_with_ext(std::vector<double> v)
+{
+	update_base(v);
+
+	for (int i = 0; i < dimensionality; i++) {
+		min[i] = (min[i] < v[i]) ? min[i] : v[i];
+	}
+}
+
+void MultivariateSample::update_full(std::vector<double> v)
+{
+	update_with_cov(v);
+
+	for (int i = 0; i < dimensionality; i++) {
+		min[i] = (min[i] < v[i]) ? min[i] : v[i];
 	}
 }
 
@@ -58,4 +99,11 @@ double MultivariateSample::Covariance(int row, int column) const
 		return (1.0 / (count - 1)) * (cross_products[max + min * dimensionality - min * (min + 1) / 2] -
 			(1.0 / count) * sum_x[row] * sum_x[column]);
 	}
+}
+
+std::vector<double> MultivariateSample::Min() const
+{
+	if (!track_ext) throw std::logic_error("Cannot report minimum; extrema not tracked for this sample.");
+	else if (count == 0) throw std::logic_error("Cannot report minimum out of 0 observations.");
+	else return min;
 }
